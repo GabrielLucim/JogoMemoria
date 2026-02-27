@@ -1,14 +1,32 @@
-const palavras = ["DIV", "META", "READER", "JS", "FOOTER", "BODY"];
+let palavras = ["DIV", "META", "READER", "JS", "FOOTER", "BODY"];
 
 const btnReiniciar = document.getElementById("btnReiniciar");
 const cards = document.querySelectorAll(".card");
+const url = "https://darkblue-frog-779608.hostingersite.com";
 
 let primeira = null;
 let segunda = null;
 let tentativa = 0;
 
 
-iniciar();
+//iniciar();
+
+buscarPalavras();
+
+async function buscarPalavras(){
+	try{
+		//função que por padrão faz requisição com get
+		const response = await fetch(`${url}/api/palavras.php?quantidade=6`);
+		if(!response.ok){
+			throw new Error(`Error ${response.status}`);
+		}
+		palavras = await response.json();
+		console.log(palavras);
+		iniciar();
+	}catch(error){
+		console.log(error);
+	}
+}
 
 function iniciar(){
 	let embaralhadas = embaralhar([...palavras, ...palavras]);
@@ -33,6 +51,8 @@ function virar(card){
 
 function verificar(){
 	if(primeira.textContent == segunda.textContent){
+		primeira = null;
+		segunda = null;
 		console.log("acertou...");
 	}else{
 		setTimeout(()=>{
@@ -40,6 +60,8 @@ function verificar(){
 			segunda.textContent = "?";
 			primeira.classList.remove("selecionado");
 			segunda.classList.remove("selecionado");
+			primeira = null;
+			segunda = null;
 		},600);
 	}
 }
@@ -53,4 +75,4 @@ function embaralhar(array){
 	return array;
 }
 
-btnReiniciar.onclick = () => iniciar();
+btnReiniciar.onclick =() => buscarPalavras();

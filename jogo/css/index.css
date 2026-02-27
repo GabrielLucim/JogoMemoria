@@ -10,9 +10,9 @@ body{
 
 header{
 	border: 1px solid #a9a6a6;
-	border-radius: 10px;
+	border-radius: 10px 30px;
 	background: #fff;
-	padding: 10px;
+	padding: 10px 30px;
 	margin: 20px;
 	display: flex;
 	flex-direction: column;
@@ -50,4 +50,16 @@ button:hover{
 
 .card.selecionado{
 	background: #800080;
+}
+
+.cinza{
+	color: #333030;
+}
+
+.negrito{
+	font-weight: bold;
+}
+
+.espacamento{
+	letter-spacing: 3px;
 }
