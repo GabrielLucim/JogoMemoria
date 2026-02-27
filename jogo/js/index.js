@@ -7,11 +7,13 @@ const url = "https://darkblue-frog-779608.hostingersite.com";
 let primeira = null;
 let segunda = null;
 let tentativa = 0;
+let bloqueado = false;
 
-
+// /api/ranking.php
 //iniciar();
 
 buscarPalavras();
+salvarPartida();
 
 async function buscarPalavras(){
 	try{
@@ -28,6 +30,27 @@ async function buscarPalavras(){
 	}
 }
 
+async function salvarPartida(){
+	try{
+		const response = await fetch(`${url}/api/salvar.php`,{
+			method: 'POST',
+			header:{
+				'Content-Type':'application/json',
+			},
+			body:JSON.stringify({nome:"Antonio", tempo:20, tentativa: 100})
+		});
+		
+		if(!response.ok){
+			throw new Error(`ERROR ${response.status}`);
+		}
+		
+		const data = await response.json();
+		console.log(data);
+	}catch(error){
+		console.log(error);
+	}
+}
+
 function iniciar(){
 	let embaralhadas = embaralhar([...palavras, ...palavras]);
 	cards.forEach((card, x) =>{
@@ -38,6 +61,8 @@ function iniciar(){
 }
 
 function virar(card){
+	if(bloqueado) return;
+	if(card === primeira) return;
 	card.textContent = card.dataset.palavra;
 	card.classList.add("selecionado");
 	if(!primeira){
@@ -55,6 +80,7 @@ function verificar(){
 		segunda = null;
 		console.log("acertou...");
 	}else{
+		bloqueado = true;
 		setTimeout(()=>{
 			primeira.textContent = "?";
 			segunda.textContent = "?";
@@ -62,7 +88,10 @@ function verificar(){
 			segunda.classList.remove("selecionado");
 			primeira = null;
 			segunda = null;
+			bloqueado = false;
+			console.log("1")
 		},600);
+		console.log("2")
 	}
 }
 
