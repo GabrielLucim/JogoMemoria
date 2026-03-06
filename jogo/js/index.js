@@ -10,10 +10,18 @@ let tentativa = 0;
 let bloqueado = false;
 
 // /api/ranking.php
-//iniciar();
+// iniciar();
 
 buscarPalavras();
 salvarPartida();
+
+
+function alterarTema(){
+	let tema = localStorage.getItem("tema") || 'light';
+	tema = tema == 'light' ? 'dark' : 'light';
+	document.body.dataset.theme = tema;
+	localStorage.setItem("tema", tema);
+}
 
 async function buscarPalavras(){
 	try{
