@@ -1,19 +1,28 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-br" data-theme="light">
 	<head>
 		<title>Jogo da Memória</title>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link href="css/index.css" rel="stylesheet">
+		<script>
+		(function () {
+			console.log("asddd")
+			document.documentElement.setAttribute('data-theme', 'dark');
+				//document.body.dataset.theme = localStorage.getItem("tema") || 'light';
+
+			})();
+		</script>
 	</head>
 	<body>
 		<header>
 		
 			<input type = "text" id = "nomeJogador" placeholder = "Digite seu nome">
-			<span>Tentativas: 0</span>
-			<p>Tempo: <span id = "tempo">0</span>s</p>
+			<span class="cinza negrito espacamento">Tentativas: 0</span>
+			<p class="cinza negrito espacamento">Tempo: <span id = "tempo">0</span>s</p>
 			
 			<button id="btnReiniciar">Reiniciar</button>
+			<button id="btnAlterarTema">Alterar Tema</button>
 			
 		</header>
 		<main class="board">
@@ -37,6 +46,7 @@
 			alert("Olá,");
 		}
 	</script> -->
-	<script src="js/index.js"></script>
+	<script type= "module" src="js/main.js" defer>
+	</script>
 	</body>
 </html>
